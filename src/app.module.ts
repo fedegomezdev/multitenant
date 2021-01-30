@@ -15,16 +15,6 @@ import { UserModule } from './modules/user/user.module';
       context: ({ req }) => ({ req }),
       path: ':tenant?/api/graphql'
     }),
-    // GraphQLModule.forRootAsync({
-    //   inject: [ConfigService],
-    //   useFactory: async (configService: ConfigService) => ({
-    //     context: ({ req }) => ({ req }),
-    //     debug: configService.get('NODE_ENV') !== 'production',
-    //     playground: configService.get('NODE_ENV') !== 'production',
-    //     autoSchemaFile: true,
-    //     path: ':tenant?/api/graphql'
-    //   })
-    // }),
     ConfigModule.forRoot({ isGlobal: true }),
     DatabaseModule,
     TenancyModule,

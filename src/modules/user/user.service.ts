@@ -24,7 +24,11 @@ export class UserService {
   }
 
   async createUser(user: CreateUserDto): Promise<GetUserDto> {
-    const createdUser = await this.userRepository.save(user);
-    return plainToClass(GetUserDto, createdUser);
+    try {
+      const createdUser = await this.userRepository.save(user);
+      return plainToClass(GetUserDto, createdUser);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 }

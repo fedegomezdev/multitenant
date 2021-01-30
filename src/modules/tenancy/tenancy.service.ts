@@ -13,17 +13,28 @@ export class TenancyService {
   ) {}
 
   async findAll(): Promise<GetTenantDto[]> {
-    const tenants = await this.tenantRepository.find();
-
-    return tenants.map((tenant) => plainToClass(GetTenantDto, tenant));
+    try {
+      const tenants = await this.tenantRepository.find();
+      return tenants.map((tenant) => plainToClass(GetTenantDto, tenant));
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
-  async findOne(name: string) {
-    return await this.tenantRepository.findOne({ name });
+  async findByName(name: string) {
+    try {
+      return await this.tenantRepository.findOne({ name });
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   async create(tenant: CreateTenantDto): Promise<GetTenantDto> {
-    const createdTenant = await this.tenantRepository.save(tenant);
-    return plainToClass(GetTenantDto, createdTenant);
+    try {
+      const createdTenant = await this.tenantRepository.save(tenant);
+      return plainToClass(GetTenantDto, createdTenant);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 }
